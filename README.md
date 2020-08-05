@@ -20,9 +20,9 @@ Things you may want to cover:
 * Database initialization
 	I used postgres as the db
 	to seed the db from the csv files run the following:
-		* rake csv_import:locations
-		* rake csv_import:technicians
-		* rake csv_import:work_orders
+		rake csv_import:locations
+		rake csv_import:technicians
+		rake csv_import:work_orders
 
 * How to run the test suite
 
