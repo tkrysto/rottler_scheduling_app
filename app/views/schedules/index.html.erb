@@ -6,7 +6,7 @@
 
 	<div class="col-1 time" style="padding:0px;">
 		<div><h4>&nbsp;</h4></div>
-		<!-- creates left time scale in 1 hour increments -->
+		<%# creates left time scale in 1 hour increments %>
 		<% (start..stop).step(1.hour).each do |ts| %>
 			<div class="hour-box">
 				<div class="deets">
@@ -24,30 +24,27 @@
 					<% arr = [] %>
 					<% t["work"].each{|v| arr.push(v["time"]) } %>
 					
-					<% overlap = 0 %> <!-- time in minutes that the work exceeds the one hour incrementation -->
+					<% overlap = 0 %> <%# time in minutes that the work exceeds the one hour incrementation %>
 					<% endTime = nil %>
 					<% prevEndTime = nil %>
 					<% (start..stop).step(1.hour).each do |ts| %>
 						
 						<% ct = Time.at(ts).utc %>
 						<% scheduled = false %>
-							<% if overlap < 60 || arr.any?{|time| (time.to_time.utc).to_i.between?(ct.to_i, (ct + 60*60-overlap).to_i)} %> <!-- skips generating box if work duration covers the hour increment -->
+							<% if overlap < 60 || arr.any?{|time| (time.to_time.utc).to_i.between?(ct.to_i, (ct + 60*60-overlap).to_i)} %> <%# skips generating box if work duration covers the hour increment %>
 								<% t["work"].each do |w| %>
 									<% realTime = w["time"].to_time.utc %>
-									<!-- if the work order time falls within the hour incrementation -->
+									<%# if the work order time falls within the hour incrementation %>
 
 									<% if (realTime).to_i >= ct.to_i && (realTime).to_i < (ct+60*60-overlap).to_i %> 
 										<% scheduled = true %>
 										<% endTime = realTime+60*(w["duration"].to_i) %>
 
-										<!-- if workorder start time is on the hour eg 4:00 -->
-										<%# "realtime: #{(realTime)}" %>
-										<%# "ct: #{ct}" %>
-										<%# "true/false: #{(realTime) == ct}" %>
+										<%# if workorder start time is on the hour eg 4:00 %>
 										<% if (realTime) == ct %>
 											
 											<% overlap = w["duration"] - 60  %>
-											<!-- creates a box showing scheduled work, location, start and end times -->
+											<%# creates a box showing scheduled work, location, start and end times %>
 											<div class="hour-box scheduled text-center" style="height:<%= (w["duration"]*2) %>px;" data-city="<%= w["city"] %>" data-price="<%= w["price"] %>" data-duration="<%= w["duration"] %>" data-start="<%= (realTime).strftime('%l:%M%p') %>" data-end="<%= (realTime+60*(w["duration"].to_i)).strftime('%l:%M%p') %>">
 												<div class="deets">
 													<p class="name"><%= w["name"] %></p>
@@ -56,7 +53,7 @@
 													<p class="sched-time"><%= "#{(realTime).strftime('%l:%M%p')} to #{(realTime+60*(w["duration"].to_i)).strftime('%l:%M%p')}" %></p>
 												</div>
 											</div>
-										<!-- if work order start time occurs at some point not on the hour eg 4:15 -->
+										<%# if work order start time occurs at some point not on the hour eg 4:15 %>
 										<% else %>
 
 
@@ -64,13 +61,10 @@
 
 
 
-											<% offset = ((realTime) - ct) / 60 %> <!-- time in minutes from the start of the hour -->
+											<% offset = ((realTime) - ct) / 60 %> <%# time in minutes from the start of the hour %>
 											<% overlap = (w["duration"] + offset) - 60  %>
-											<%# "endtime: #{prevEndTime}" %>
-											<%# "ct: #{ct}" %>
-											<%# "true/false: #{prevEndTime.to_i <= ct.to_i}" %>
 											<% if prevEndTime.blank? || prevEndTime.to_i <= ct.to_i %>
-												<!-- creates a "nothing scheduled" box for the time from the start of the hour to the start of the work -->
+												<%# creates a "nothing scheduled" box for the time from the start of the hour to the start of the work %>
 												<div class="hour-box text-center" data-overlap="<%= overlap %>" style="height:<%= (offset*2) %>px;" data-start="<%= ct.strftime('%l:%M%p') %>" data-end="<%= (ct+offset*60).strftime('%l:%M%p') %>">
 													<div class="deets">
 														<p>Nothing Scheduled</p>
@@ -78,7 +72,7 @@
 													</div>
 												</div>
 											<% end %>
-											<!-- creates a box showing scheduled work, location, start and end times -->
+											<%# creates a box showing scheduled work, location, start and end times %>
 											
 
 
@@ -98,8 +92,7 @@
 								<% end %>
 							
 								<% if !scheduled %>
-									<!-- nothing was scheduled for this hour incrementation, creates a "nothing scheduled" box -->
-									<%# overlap2 = !endTime.blank? ? ((endTime - (ct+overlap*60))/ 60) + 300 : 0 %>
+									<%# nothing was scheduled for this hour incrementation, creates a "nothing scheduled" box %>
 									<div class="hour-box text-center" data-overlap="<%= overlap %>" style="height:<%= 120-(overlap*2) %>px;" data-start="<%= (endTime.blank? ? ct+overlap*60 : endTime).strftime('%l:%M%p') %>" data-end="<%= (ct+60*60).strftime('%l:%M%p') %>">
 										<div class="deets">
 											<p>Nothing Scheduled</p>
@@ -124,7 +117,7 @@
 	</div>
 </div>
 
-<!-- modal showing work order details or time between work on click. js for click in /assets/javascripts/schedules.js -->
+<%# modal showing work order details or time between work on click. js for click in /assets/javascripts/schedules.js %>
 <div class="modal fade" id="schedule_deets" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
