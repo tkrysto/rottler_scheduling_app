@@ -1,0 +1,78 @@
+// Place all the styles related to the schedules controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.col-1, .col-11{
+	display: inline-block;
+}
+.col{
+	padding: 0px;
+}
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#schedule{
+	.hour-box{
+	    border: 1px solid #333;
+	    height: 120px;
+	    position: relative;
+	    cursor: pointer;
+	    overflow: hidden;
+	    &.scheduled{
+	    	background-color: #9dfd9d;
+	    	transition: all .2s ease-in-out;
+	    	z-index: 8;
+	    	&:hover, &:focus{
+	    		background-color: #56ff56;
+	    	}
+	    }
+	    &:hover, &:focus{
+	    	background-color: #fff;
+		    transform: scale(1.1);
+		    z-index: 9;
+		}
+		.deets{
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+			width: 100%;
+			left: 0;
+			text-align: center;
+			p{
+				margin-bottom: 0px;
+			}
+			.name{
+				font-weight: bold;
+				margin-bottom: 0px;
+			}
+			.sched-time{
+				margin-bottom: 0px;
+				font-size: 80%;
+			    font-weight: 400;
+			}
+		}
+	}
+}
+.time{
+	.hour-box{
+	    border: 1px solid #333;
+	    height: 120px;
+	    position: relative;
+		background-color: #e8e8e8;
+    	color: #333;
+    	.deets{
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			-ms-transform: translateY(-50%);
+			transform: translateY(-50%);
+			width: 100%;
+			left: 0;
+			text-align: center;
+		}
+	}
+}
+
