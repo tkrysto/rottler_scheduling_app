@@ -153,11 +153,15 @@
 			</div>
 			<div class="modal-body">
 				<%= form_for :workorders, url: workorders_path do |f| %>
-
+					<% flash.each do |type, msg| %>
+						<div class="alert alert-danger">
+							<%= msg %>
+						</div>
+					<% end %>
 					<%= f.text_field(:technician_id, {type: 'hidden'}) %>
 					<p>
 						<%= f.label :location_id %><br>
-						<%= f.collection_select(:location_id, Location.order(:name),:id,:name, include_blank: true) %>
+						<%= f.collection_select :location_id, Location.order(:name),:id,:name, {prompt: "Select a location"}, {class: "form-control"} %>
 					</p>
 					<p>
 						<%= f.label :time %><br>
