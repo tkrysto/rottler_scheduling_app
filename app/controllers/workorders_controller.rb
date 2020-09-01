@@ -7,7 +7,7 @@ class WorkordersController < ApplicationController
 	end
 	def create
 
-		@workorder = WorkOrder.new(work_params)
+		@workorder = WorkOrder.new #(work_params)
 		if @workorder.save
 			redirect_to root_path
 		else
@@ -15,8 +15,9 @@ class WorkordersController < ApplicationController
 		end
 	end
 	private 
-
+=begin
 	def work_params
-		params.require(:technician_id, :location_id, :time, :duration).permit(:price)
+		params.require(:technician_id, :location_id, :time, :duration, :price) #.permit(:technician_id, :location_id, :time, :duration, :price)
 	end
+=end
 end

@@ -20,12 +20,16 @@ $('#schedule .hour-box').click(function(){
 	$('#schedule_deets').find('.city').html(city);
 	$('#schedule_deets').find('.price').html("$"+price);
 
+	$('#schedule_new').find('#workorders_technician_id').val(techId);
+
 	if($(this).hasClass('scheduled')){
 		$('#schedule_deets').find('.not-scheduled').hide();
 		$('#schedule_deets').find('.scheduled').show();
+		$('#schedule_deets').find('.schedule-new').hide();
 	}else{
 		$('#schedule_deets').find('.not-scheduled').show();
 		$('#schedule_deets').find('.scheduled').hide();
+		$('#schedule_deets').find('.schedule-new').show();
 	}
 
 	$('#schedule_deets').modal('show');
