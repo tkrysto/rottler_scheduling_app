@@ -152,11 +152,30 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-success">Save Work</button>
-        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<%= form_for :workorders, url: workorders_path do |f| %>
+
+					<%= f.text_field(:technician_id, {type: 'hidden'}) %>
+					<p>
+						<%= f.label :location_id %><br>
+						<%= f.collection_select(:location_id, Location.order(:name),:id,:name, include_blank: true) %>
+					</p>
+					<p>
+						<%= f.label :time %><br>
+						<%= f.text_field(:time, {class: 'form-control'}) %>
+					</p>
+					<p>
+						<%= f.label :duration %><br>
+						<%= f.text_field(:duration, {class: 'form-control'}) %>
+					</p>
+					<p>
+						<%= f.label :price %><br>
+						<%= f.text_field(:price, {class: 'form-control'}) %>
+					</p>
+					<p>
+						<%= f.submit({class: 'btn btn-primary'}) %>
+					</p>
+
+				<% end %>
 			</div>
 		</div>
 	</div>
